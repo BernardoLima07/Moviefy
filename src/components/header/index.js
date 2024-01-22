@@ -32,7 +32,7 @@ export const Header = () => {
 
   return (
     <Container>
-      <h1>Moviefy</h1>
+      <h1>Moviefy Beta</h1>
       <Link to={"/search"}>
         <SearchIcon
           sx={{
