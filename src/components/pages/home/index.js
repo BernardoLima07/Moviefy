@@ -6,8 +6,9 @@ import { Details } from "../details";
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [isDetailsVisible, setDetailsVisibility] = useState(false);
+
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [isDetailsVisible, setDetailsVisibility] = useState(false);
 
   const options = {
     method: "GET",
@@ -36,32 +37,32 @@ export const Home = () => {
   const handleDetailsClose = () => {
     setDetailsVisibility(false);
   };
-  console.log("isDetailsVisible", isDetailsVisible);
+
   console.log("selectedMovie", selectedMovie);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <div>
       <Header />
-      {movies.map((movie) => (
-        <div key={movie.id}>
-          <img
-            src={`${imageUrl}${movie.poster_path}`}
-            alt={movie.title}
-            onClick={() => handleDetailsVisibility(movie)}
-          />
-          <h2>{movie.title}</h2>
-        </div>
-      ))}
       {isDetailsVisible ? (
         <Details
-          selectedMovie={selectedMovie}
           selectedMovieTitle={selectedMovie.title}
           selectedMovieOverview={selectedMovie.overview}
           selectedMoviePoster={`${imageUrl}${selectedMovie.poster_path}`}
           onClose={handleDetailsClose}
         />
-      ) : null}
+      ) : (
+        movies.map((movie) => (
+          <div key={movie.id}>
+            <img
+              src={`${imageUrl}${movie.poster_path}`}
+              alt={movie.title}
+              onClick={() => handleDetailsVisibility(movie)}
+            />
+            <h2>{movie.title}</h2>
+          </div>
+        ))
+      )}
     </div>
   );
 };
