@@ -48,7 +48,6 @@ export const Home = () => {
     setSearchModalVisibility(false);
   };
 
-  console.log("selectedMovie", selectedMovie);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   return (

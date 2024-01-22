@@ -5,7 +5,6 @@ import { Search } from "../pages/search";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const Header = ({setVisible}) => {
-  
 
   return (
     <Container>
