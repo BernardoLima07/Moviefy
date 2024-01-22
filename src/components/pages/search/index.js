@@ -1,15 +1,31 @@
-import React, { useEffect } from "react";
-import { Container, Header } from "./styles";
-import { Link, useLocation } from "react-router-dom";
-import { Movie, MovieList } from "../home/styles";
+import React from "react";
+import Modal from "react-modal";
 
-const imageUrl = "https://image.tmdb.org/t/p/w500";
+Modal.setAppElement("#root");
 
-export const Search = () => {
+export const Search = ({ isVisible, onClose }) => {
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
   return (
-    <div style={{backgroundColor: 'red', }}>
-     <h1>Tela de search</h1>
+    <div>
+      <Modal
+        isOpen={isVisible}
+        style={customStyles}
+        contentLabel="Exemplo de Modal"
+      >
+        <button onClick={() => onClose()}>close</button>
+        <h2>Título do Modal</h2>
+        <p>Conteúdo do modal...</p>
+      </Modal>
     </div>
   );
 };

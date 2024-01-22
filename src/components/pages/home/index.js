@@ -3,9 +3,11 @@ import { Movie, MovieList } from "./styles";
 import { Link } from "react-router-dom";
 import { Header } from "../../header";
 import { Details } from "../details";
+import { Search } from "../search";
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [isSearchModalVisible, setSearchModalVisibility] = useState(false);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
@@ -38,12 +40,26 @@ export const Home = () => {
     setDetailsVisibility(false);
   };
 
+  const handleSearchVisibility = () => {
+    setSearchModalVisibility(true);
+  };
+
+  const handleSearchModalClose = () => {
+    setSearchModalVisibility(false);
+  };
+
   console.log("selectedMovie", selectedMovie);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <div>
-      <Header />
+      <Header setVisible={handleSearchVisibility} />
+      {isSearchModalVisible && (
+        <Search
+          onClose={handleSearchModalClose}
+          isVisible={isSearchModalVisible}
+        />
+      )}
       {isDetailsVisible ? (
         <Details
           selectedMovieTitle={selectedMovie.title}

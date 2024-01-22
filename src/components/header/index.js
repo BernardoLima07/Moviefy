@@ -4,8 +4,8 @@ import { Search } from "../pages/search";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-export const Header = () => {
-  const [isSearchModalVisible, setSearchModalVisibility] = useState(false);
+export const Header = ({setVisible}) => {
+  
 
   return (
     <Container>
@@ -17,11 +17,9 @@ export const Header = () => {
           width: "35px",
           height: "35px",
         }}
-        onClick={() => setSearchModalVisibility(true)}
+        onClick={() => setVisible()}
       />
-      {isSearchModalVisible && (
-        <Search onClose={() => setSearchModalVisibility(false)} />
-      )}
+      
     </Container>
   );
 };
