@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Movie, MovieList } from "./styles";
+import { Movie, MovieList, Row } from "./styles";
 import { Link } from "react-router-dom";
 import { Header } from "../../header";
 import { Details } from "../details";
 import { Search } from "../search";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+import AvengersBackground from "../../../assets/AvengersPosterPath.jpeg";
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -50,6 +54,24 @@ export const Home = () => {
 
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+
   return (
     <div>
       <Header setVisible={handleSearchVisibility} />
@@ -67,16 +89,42 @@ export const Home = () => {
           onClose={handleDetailsClose}
         />
       ) : (
-        movies.map((movie) => (
-          <div key={movie.id}>
+        <>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img
-              src={`${imageUrl}${movie.poster_path}`}
-              alt={movie.title}
-              onClick={() => handleDetailsVisibility(movie)}
+              style={{ width: "80%", opacity: 0.8 }}
+              src={AvengersBackground}
+              alt=""
             />
-            <h2>{movie.title}</h2>
           </div>
-        ))
+          <h1 style={{color: 'white', fontSize: '25px', marginLeft: '20px'}}>Popular Movies</h1>
+          <Carousel
+            swipeable={false}
+            draggable={false}
+            showDots={true}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            infinite={true}
+            responsive={responsive}
+          >
+            {movies.map((movie) => (
+              <>
+                <img
+                  style={{ cursor: "pointer", borderRadius: "20px" }}
+                  width={250}
+                  src={`${imageUrl}${movie.poster_path}`}
+                  alt={movie.title}
+                  onClick={() => handleDetailsVisibility(movie)}
+                />
+              </>
+            ))}
+          </Carousel>
+        </>
       )}
     </div>
   );

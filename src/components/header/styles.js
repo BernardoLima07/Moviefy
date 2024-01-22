@@ -1,21 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  backgroundColor: '#e9b222',
-  marginBottom: '30px',
+  display: "flex",
+  justifyContent: "space-between",
+  flexDirection: "row",
+  alignItems: "center",
+  position: "fixed",
+  backgroundColor: "transparent",
+  zIndex: 1,
+  width: "90%",
+  height: "15%",
   h1: {
-    position: 'relative',
-    textAlign: 'center',
-    margin: '1.3rem',
-    color: '#ffffff',
+    color: "#ffffff",
   },
-  input: {
-    borderRadius: '1rem',
-    border: 'none',
-    margin: '1.3rem 3rem',
-    height: '1.7rem',
-  }
-})
+});

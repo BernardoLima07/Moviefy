@@ -4,9 +4,9 @@ import { Search } from "../pages/search";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-export const Header = ({setVisible}) => {
-
+export const Header = ({ setVisible }) => {
   return (
+    <div style={{justifyContent: 'center', display: 'flex'}}>
     <Container>
       <h1>Moviefy Beta</h1>
 
@@ -18,7 +18,7 @@ export const Header = ({setVisible}) => {
         }}
         onClick={() => setVisible()}
       />
-      
     </Container>
+    </div>
   );
 };
