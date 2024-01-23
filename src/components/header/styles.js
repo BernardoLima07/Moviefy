@@ -8,7 +8,7 @@ export const Container = styled.div({
   position: "fixed",
   backgroundColor: "transparent",
   zIndex: 1,
-  width: "90%",
+  width: "75%",
   height: "15%",
   h1: {
     color: "#ffffff",
