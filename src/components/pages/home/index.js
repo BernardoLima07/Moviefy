@@ -8,7 +8,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import AvengersBackground from "../../../assets/AvengersPosterPath.jpeg";
-import { SideBar } from "../../sideBar";
+
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -76,7 +76,7 @@ export const Home = () => {
   return (
     <div>
       <Header setVisible={handleSearchVisibility} />
-      <SideBar />
+
       {isSearchModalVisible && (
         <Search
           onClose={handleSearchModalClose}
