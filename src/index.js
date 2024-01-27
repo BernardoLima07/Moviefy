@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import { Home } from "./components/pages/home";
-import { Details } from "./components/pages/details";
-import { Search } from "./components/pages/search";
+import { Home } from "./pages/home";
+import { Details } from "./pages/details";
+import { Search } from "./pages/search";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "./styles";
-import { Search } from "../pages/search";
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -15,6 +14,7 @@ export const Header = ({ setVisible }) => {
           color: "#ffffff",
           width: "35px",
           height: "35px",
+          cursor: "pointer",
         }}
         onClick={() => setVisible()}
       />

@@ -1,33 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { Container, Header, PopularMovieList } from "./styles";
+import { Header, PopularMovieList } from "./styles";
 import { ArrowBack } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import options from "../../config/optionsAPI.js";
+import imageUrl from "../../components/helpers/imageURL/index.js";
 
 Modal.setAppElement("#root");
-
-const imageUrl = "https://image.tmdb.org/t/p/w500";
 
 export const Search = ({ isVisible, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isMovieVisible, setIsMovieVisible] = useState(true);
 
-  const popularMovieOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzlkMjZjMTlhNGRiNGYxZDA4MTdiMzIxZmM4ZGU0OSIsInN1YiI6IjY1Njg4YzQxMTI3Nzc4MDlkYWIyMDQyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xJItsBayEScGvSJrhG6vD1ucZLe39B3ldgtp7wjqqvc",
-    },
-  };
-
   useEffect(() => {
     if (isMovieVisible) {
       fetch(
-        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
-        popularMovieOptions
+        'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+        options
       )
         .then((response) => response.json())
         .then((data) => {
@@ -37,7 +28,7 @@ export const Search = ({ isVisible, onClose }) => {
       if (searchQuery.trim() !== "") {
         fetch(
           `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=1`,
-          popularMovieOptions
+          options
         )
           .then((response) => response.json())
           .then((data) => {
@@ -48,7 +39,8 @@ export const Search = ({ isVisible, onClose }) => {
           );
       }
     }
-  }, [isMovieVisible, searchQuery, popularMovieOptions]);
+  }, [isMovieVisible, searchQuery]);
+
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -94,7 +86,9 @@ export const Search = ({ isVisible, onClose }) => {
             sx={{
               width: "30px",
               height: "30px",
+              color: "#ffffff",
             }}
+            onClick={() => onClose()}
           />
           <h2>Mais pesquisados</h2>
           <form>
