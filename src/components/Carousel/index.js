@@ -36,7 +36,6 @@ export const CarouselComponent = ({
 
   return (
       <CarouselContainer>
-        <GenresTitle>Populares</GenresTitle>
         <Carousel
           swipeable={false}
           draggable={false}
