@@ -1,46 +1,64 @@
-import Carousel from "react-multi-carousel";
+import React, { useState } from "react";
+import { responsive } from "../helpers/responsiveCss";
 import imageUrl from "../helpers/imageURL";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { ContainerMovies } from "../../pages/home/styles";
+import { CarouselContainer, GenresTitle, MovieImageCarousel } from "./styles";
 
-const Carrossel = ({movies, openDetails}) => {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 5,
-      slidesToSlide: 3, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
+export const CarouselComponent = ({
+  conditionDefaultMovieBoolean,
+  popularMoviesIndexZero,
+  topRatedSeriesIndexZero,
+  upcomingMoviesIndexZero,
+  handleMovieClick,
+  selectedMovie,
+  searchedMovieResult,
+  getCarouselMoviesSearchedByConditionProp,
+}) => {
+  const [borderCondition, setBorderCondition] = useState(true);
+
+  const borderMoviesByCondition = (movie) => {
+    switch (conditionDefaultMovieBoolean) {
+      case true:
+        return (
+          (popularMoviesIndexZero && popularMoviesIndexZero.id === movie.id) ||
+          (topRatedSeriesIndexZero &&
+            topRatedSeriesIndexZero.id === movie.id) ||
+          (upcomingMoviesIndexZero && upcomingMoviesIndexZero.id === movie.id)
+        );
+      case false:
+        return selectedMovie?.id === movie.id;
+      default:
+        return null;
+    }
   };
 
   return (
-    <Carousel
-      swipeable={false}
-      draggable={false}
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      infinite={true}
-      responsive={responsive}
-    >
-      {movies.map((movie) => (
-        <>
-          <img
-            style={{ cursor: "pointer", borderRadius: "20px" }}
-            width={250}
-            src={`${imageUrl}${movie.poster_path}`}
-            alt={movie.title}
-            onClick={() => openDetails(movie)}
-          />
-        </>
-      ))}
-    </Carousel>
+      <CarouselContainer>
+        <GenresTitle>Populares</GenresTitle>
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          removeArrowOnDeviceType={["tablet", "mobile", "miniMobile", "tablet"]}
+          infinite={true}
+          responsive={responsive}
+        >
+          {getCarouselMoviesSearchedByConditionProp().map((movie) => (
+            <ContainerMovies key={movie.id}>
+              <MovieImageCarousel
+                width={150}
+                src={`${imageUrl}${movie.poster_path}`}
+                alt={movie.title}
+                onClick={() => {
+                  handleMovieClick(movie);
+                  setBorderCondition(borderMoviesByCondition(movie));
+                }}
+                borderMoviesByConditionProp={borderMoviesByCondition(movie)}
+              />
+            </ContainerMovies>
+          ))}
+        </Carousel>
+      </CarouselContainer>
   );
 };
-
-export default Carrossel;

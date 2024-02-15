@@ -1,112 +1,212 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/header";
-import { Details } from "../details";
-import { Search } from "../search";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import options from "../../config/optionsAPI";
-import imageUrl from "../../components/helpers/imageURL";
-import AvengersBackground from "../../assets/AvengersPosterPath.jpeg";
-import Carrossel from "../../components/Carousel";
+import { originalImageURL } from "../../components/helpers/originalImageURL";
+import { motion } from "framer-motion";
+import {
+  BackgroundImage,
+  Container,
+  ContentContainer,
+  DetailsContent,
+  MovieOverview,
+  MovieTitle,
+  Details,
+  MainContainer,
+  TabletScreenContainer,
+  DesktopScreenContainer,
+  MobileScreenContainer,
+  SeeMore,
+} from "./styles";
+import Header from "../../components/header";
+import { CarouselComponent } from "../../components/carousel";
+import ModalComponent from "../../components/modal";
 
 export const Home = () => {
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [topRatedSeries, setTopRatedSeries] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [isSearchModalVisible, setSearchModalVisibility] = useState(false);
+
+  const [searchedMovie, setSearchedMovie] = useState("");
+  const [searchedMovieResult, setSearchedMovieResult] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [isDetailsVisible, setDetailsVisibility] = useState(false);
+
+  const [conditionCarousel, setConditionCarousel] = useState("Movies");
+  const [conditionCarouselMoviesSearched, setConditionCarouselMoviesSearched] =
+    useState(true);
+  const [conditionDefaultMovie, setConditionDefaultMovie] = useState(true);
+  const [conditionDefaultMovieBoolean, setConditionDefaultMovieBoolean] =
+    useState(true);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setPopularMovies(data.results);
-      });
+    const fetchData = async () => {
+      const fetchUpcomingMovies = fetch(
+        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+        options
+      ).then((response) => response.json());
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`,
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setTopRatedMovies(data.results);
-      });
-  }, []);
+      const fetchPopularMovies = fetch(
+        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
+        options
+      ).then((response) => response.json());
 
-  const handleDetailsVisibility = (movie) => {
+      const fetchTopRatedSeries = fetch(
+        "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
+        options
+      ).then((response) => response.json());
+
+      const fetchSearchedMovies = fetch(
+        `https://api.themoviedb.org/3/search/movie?query=${searchedMovie}&include_adult=false&language=en-US&page=1`,
+        options
+      ).then((response) => response.json());
+
+      const searchedMoviesData = await fetchSearchedMovies;
+      setSearchedMovieResult(searchedMoviesData.results);
+
+      const upcomingMoviesData = await fetchUpcomingMovies;
+      setUpcomingMovies(upcomingMoviesData.results);
+
+      const popularMoviesData = await fetchPopularMovies;
+      setPopularMovies(popularMoviesData.results);
+
+      const topRatedSeriesData = await fetchTopRatedSeries;
+      setTopRatedSeries(topRatedSeriesData.results);
+    };
+
+    fetchData();
+  }, [searchedMovie]);
+
+  const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
-    setDetailsVisibility(true);
-  };
-  const handleDetailsClose = () => {
-    setDetailsVisibility(false);
+    setConditionDefaultMovie(false);
+    setConditionDefaultMovieBoolean(false);
   };
 
-  const handleSearchVisibility = () => {
-    setSearchModalVisibility(true);
+  const getCarouselMoviesSearchedByCondition = () => {
+    switch (conditionCarouselMoviesSearched) {
+      case true:
+        return getCarouselMoviesByCondition();
+      case false:
+        return Array.isArray(searchedMovieResult) ? searchedMovieResult : [];
+      default:
+        return [];
+    }
   };
 
-  const handleSearchModalClose = () => {
-    setSearchModalVisibility(false);
+  const getCarouselMoviesByCondition = () => {
+    switch (conditionCarousel) {
+      case "TvSeries":
+        return topRatedSeries;
+      case "Movies":
+        return popularMovies;
+      case "Upcoming":
+        return upcomingMovies;
+      default:
+        return [];
+    }
+  };
+
+  const getDefaultMovieByCondition = () => {
+    switch (conditionCarousel) {
+      case "Movies":
+        return conditionDefaultMovieBoolean ? popularMovies[0] : selectedMovie;
+      case "Upcoming":
+        return conditionDefaultMovieBoolean ? upcomingMovies[0] : selectedMovie;
+      case "TvSeries":
+        return conditionDefaultMovieBoolean ? topRatedSeries[0] : selectedMovie;
+      default:
+        return null;
+    }
   };
 
   return (
-    <div>
-      <Header setVisible={handleSearchVisibility} />
-
-      {isSearchModalVisible && (
-        <Search
-          onClose={handleSearchModalClose}
-          isVisible={isSearchModalVisible}
-          topRatedMovies={topRatedMovies}
+    <>
+      <Header
+        setConditionCarousel={setConditionCarousel}
+        setConditionDefaultMovieBooleanProp={setConditionDefaultMovieBoolean}
+        setSearchedMovie={setSearchedMovie}
+        setSearchedMovieResult={setSearchedMovieResult}
+        searchedMovie={searchedMovie}
+        setConditionCarouselMoviesSearchedProp={
+          setConditionCarouselMoviesSearched
+        }
+        conditionCarouselProp={conditionCarousel}
+      />
+      <MobileScreenContainer>
+        <MainContainer>
+          <Container>
+            {getDefaultMovieByCondition() && (
+              <motion.div
+                key={getDefaultMovieByCondition().id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7 }}
+              >
+                <BackgroundImage
+                  backgroundImage={`url(${originalImageURL}${
+                    getDefaultMovieByCondition().backdrop_path
+                  })`}
+                />
+                <ContentContainer>
+                  <MovieTitle>
+                    {getDefaultMovieByCondition().title ||
+                      getDefaultMovieByCondition().name}
+                  </MovieTitle>
+                  <DetailsContent>
+                    <Details>
+                      {getDefaultMovieByCondition().vote_average.toFixed(2)}{" "}
+                      Points
+                    </Details>
+                    <Details>
+                      {new Date(
+                        getDefaultMovieByCondition().release_date ||
+                          getDefaultMovieByCondition().first_air_date
+                      ).getFullYear()}
+                    </Details>
+                  </DetailsContent>
+                  <MovieOverview>
+                    {getDefaultMovieByCondition().overview.length > 100
+                      ? getDefaultMovieByCondition().overview.slice(0, 100) +
+                        "..."
+                      : getDefaultMovieByCondition().overview}
+                    {getDefaultMovieByCondition().overview.length > 100 && (
+                      <SeeMore onClick={() => setIsModalOpen(true)}>
+                        {" Ver mais"}
+                      </SeeMore>
+                    )}
+                  </MovieOverview>
+                </ContentContainer>
+                <CarouselComponent
+                  handleMovieClick={handleMovieClick}
+                  getCarouselMoviesByCondition={getCarouselMoviesByCondition}
+                  conditionDefaultMovieBoolean={conditionDefaultMovieBoolean}
+                  topRatedSeriesIndexZero={topRatedSeries[0]}
+                  upcomingMoviesIndexZero={upcomingMovies[0]}
+                  popularMoviesIndexZero={popularMovies[0]}
+                  conditionCarouselProp={conditionCarousel}
+                  selectedMovie={selectedMovie}
+                  searchedMovieResult={searchedMovieResult}
+                  getCarouselMoviesSearchedByConditionProp={
+                    searchedMovie
+                      ? getCarouselMoviesSearchedByCondition
+                      : getCarouselMoviesByCondition
+                  }
+                />
+              </motion.div>
+            )}
+          </Container>
+        </MainContainer>
+      </MobileScreenContainer>
+      <TabletScreenContainer></TabletScreenContainer>
+      <DesktopScreenContainer></DesktopScreenContainer>
+      {getDefaultMovieByCondition() && (
+        <ModalComponent
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          overview={getDefaultMovieByCondition().overview}
         />
       )}
-      {isDetailsVisible ? (
-        <Details
-          selectedMovieTitle={selectedMovie.title}
-          selectedMovieOverview={selectedMovie.overview}
-          selectedMoviePoster={`${imageUrl}${selectedMovie.poster_path}`}
-          onClose={handleDetailsClose}
-        />
-      ) : (
-        <>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img
-              style={{
-                width: "80%",
-                opacity: 0.8,
-                marginTop: "20px",
-                borderRadius: "70px",
-              }}
-              src={AvengersBackground}
-              alt=""
-            />
-          </div>
-          <h1 style={{ color: "white", fontSize: "25px", marginLeft: "20px" }}>
-            Popular Movies
-          </h1>
-
-          <Carrossel
-            movies={popularMovies}
-            openDetails={handleDetailsVisibility}
-          />
-          <Carrossel
-            movies={topRatedMovies}
-            openDetails={handleDetailsVisibility}
-          />
-        </>
-      )}
-    </div>
+    </>
   );
 };
