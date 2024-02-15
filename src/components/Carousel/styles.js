@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CarouselContainer = styled.div({
   display: "grid",
   position: "relative",
-  bottom: "50%",
+  bottom: "60%",
 
   "@media screen and (max-width: 768px)": {
     position: "fixed",
