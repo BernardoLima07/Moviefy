@@ -42,7 +42,7 @@ export const DetailsContent = styled.div({
   alignItems: "center",
   position: "relative",
   bottom: "40px",
-  width: "55%",
+  width: "54%",
 });
 
 export const MovieTitle = styled.h1({
