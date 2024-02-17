@@ -36,8 +36,9 @@ export const CarouselComponent = ({
 
   return (
       <CarouselContainer>
+        <GenresTitle>Popular</GenresTitle>
         <Carousel
-          swipeable={false}
+          swipeable={["tablet", "mobile", "miniMobile", "tablet"]} 
           draggable={false}
           removeArrowOnDeviceType={["tablet", "mobile", "miniMobile", "tablet"]}
           infinite={true}
