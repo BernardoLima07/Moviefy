@@ -4,13 +4,21 @@ export const MainContainer = styled.div({
   display: "flex",
   justifyContent: "center",
   paddingTop: 25,
+
+  "@media (max-height: 700px)": {
+    maxHeight: "40vh",
+  },
 });
 
 export const Container = styled.div({
   display: "flex",
-  height: "41.5rem",
+  height: "41.9rem",
   width: "85%",
   position: "relative",
+
+  "@media (max-height: 700px)": {
+    maxHeight: "84vh",
+  },
 });
 
 export const BackgroundImage = styled.div(({ backgroundImage }) => ({
@@ -63,8 +71,8 @@ export const MovieOverview = styled.p({
   marginLeft: "20px",
 
   "@media (max-height: 680px)": {
-    fontSize: '15px'
-  }
+    fontSize: "15px",
+  },
 });
 
 export const Details = styled.p({
@@ -76,14 +84,14 @@ export const Details = styled.p({
   fontSize: "18px",
 
   "@media (max-height: 680px)": {
-    fontSize: '13px'
-  }
+    fontSize: "13px",
+  },
 });
 
 export const ContainerMovies = styled.div({
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: 'center',
   margin: "20px 0px 20px 0px",
 });
 
@@ -105,6 +113,10 @@ export const MenuContainer = styled.div({
   alignItems: "center",
   justifyContent: "center",
   zIndex: 100,
+
+  "@media (max-height: 700px)": {
+    height: "40%",
+  },
 });
 
 export const ContainerSearchIconMenu = styled.div({

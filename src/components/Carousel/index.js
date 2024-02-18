@@ -13,7 +13,6 @@ export const CarouselComponent = ({
   upcomingMoviesIndexZero,
   handleMovieClick,
   selectedMovie,
-  searchedMovieResult,
   getCarouselMoviesSearchedByConditionProp,
 }) => {
   const [borderCondition, setBorderCondition] = useState(true);
@@ -38,9 +37,9 @@ export const CarouselComponent = ({
     <CarouselContainer>
       <GenresTitle>Popular</GenresTitle>
       <Carousel
-        swipeable={["tablet", "mobile", "miniMobile", "tablet"]}
+        swipeable={["tablet", "mobile", "miniMobile"]}
         draggable={false}
-        removeArrowOnDeviceType={["tablet", "mobile", "miniMobile", "tablet"]}
+        removeArrowOnDeviceType={["tablet", "mobile", "miniMobile"]}
         infinite={true}
         responsive={responsive}
       >

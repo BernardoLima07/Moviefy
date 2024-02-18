@@ -5,7 +5,17 @@ export const CarouselContainer = styled.div({
   position: "relative",
   bottom: "20%",
 
-  "@media screen and (max-width: 768px)": {
+  "@media (max-width: 768px)": {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    padding: "20px 0",
+    zIndex: 100,
+    width: "100%",
+    height: "calc(40% - 40px)",
+  },
+
+  "@media (min-width: 769px) and (max-width: 1024px)": {
     position: "fixed",
     bottom: 0,
     left: 0,
@@ -14,13 +24,11 @@ export const CarouselContainer = styled.div({
     zIndex: 100,
   },
 
-  "@media screen and (min-width: 820px) and (max-width: 1024px)": {
-    position: "fixed",
-    bottom: 0,
-    left: 0,
+  "@media (min-width: 1025px)": {
     width: "100%",
     padding: "20px 0",
     zIndex: 100,
+    bottom: "160px",
   },
 });
 
@@ -53,11 +61,16 @@ export const GenresTitle = styled.p({
   marginLeft: "20px",
   fontFamily: "NetflixSans-Medium, sans-serif",
 
-  "@media (max-width: 460px)": {
+  "@media (max-width: 375px)": {
     marginLeft: "7px",
+    top: "7px",
+  },
+  "@media (min-width: 376px) and (max-width: 768px)": {
+    marginLeft: "7px",
+    top: "37px",
   },
 
   "@media (max-height: 680px)": {
-    fontSize: '20px'
-  }
+    fontSize: "20px",
+  },
 });

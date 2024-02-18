@@ -20,11 +20,7 @@ import {
 import Header from "../../components/header";
 import { CarouselComponent } from "../../components/carousel";
 import ModalComponent from "../../components/modal";
-import {
-  ContainerSearchIcon,
-  InputSearch,
-  Tabs,
-} from "../../components/header/styles";
+import TabsHelper from "../../components/helpers/tabs";
 
 export const Home = () => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -130,7 +126,7 @@ export const Home = () => {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       e.target.blur();
-      setIsMenuOpen(false)
+      setIsMenuOpen(false);
     }
   };
 
@@ -145,24 +141,42 @@ export const Home = () => {
     setSearchedMovie("");
   };
 
+  const headerProps = {
+    setConditionCarousel,
+    setConditionDefaultMovieBoolean,
+    setSearchedMovie,
+    setSearchedMovieResult,
+    searchedMovie,
+    setConditionCarouselMoviesSearchedProp: setConditionCarouselMoviesSearched,
+    setIsMenuOpenProp: setIsMenuOpen,
+    handleMenuClickProp: handleMenuClick,
+    conditionCarouselProp: conditionCarousel,
+    handleMenuOptionsClickProp: handleMenuOptionsClick,
+  };
+
+  const carouselProps = {
+    handleMovieClick,
+    getCarouselMoviesByCondition,
+    conditionDefaultMovieBoolean,
+    conditionCarousel,
+    selectedMovie,
+    searchedMovieResult,
+    topRatedSeriesIndexZero: topRatedSeries[0],
+    upcomingMoviesIndexZero: upcomingMovies[0],
+    popularMoviesIndexZero: popularMovies[0],
+    getCarouselMoviesSearchedByConditionProp: searchedMovie
+      ? getCarouselMoviesSearchedByCondition
+      : getCarouselMoviesByCondition,
+  };
+
   return (
     <>
-      <Header
-        setConditionCarousel={setConditionCarousel}
-        setConditionDefaultMovieBooleanProp={setConditionDefaultMovieBoolean}
-        setSearchedMovie={setSearchedMovie}
-        setSearchedMovieResult={setSearchedMovieResult}
-        searchedMovie={searchedMovie}
-        setConditionCarouselMoviesSearchedProp={
-          setConditionCarouselMoviesSearched
-        }
-        conditionCarouselProp={conditionCarousel}
-        setIsMenuOpenProp={setIsMenuOpen}
-        handleMenuClickProp={handleMenuClick}
-      />
+      <Header {...headerProps} />
+
       <DefaultScreenContainer>
         <MainContainer>
           <Container>
+
             {getDefaultMovieByCondition() && (
               <div>
                 <motion.div
@@ -176,6 +190,7 @@ export const Home = () => {
                       getDefaultMovieByCondition().backdrop_path
                     })`}
                   />
+
                   <ContentContainer>
                     <MovieTitle>
                       {getDefaultMovieByCondition().title ||
@@ -206,24 +221,11 @@ export const Home = () => {
                     </MovieOverview>
                   </ContentContainer>
                 </motion.div>
-                <CarouselComponent
-                  handleMovieClick={handleMovieClick}
-                  getCarouselMoviesByCondition={getCarouselMoviesByCondition}
-                  conditionDefaultMovieBoolean={conditionDefaultMovieBoolean}
-                  topRatedSeriesIndexZero={topRatedSeries[0]}
-                  upcomingMoviesIndexZero={upcomingMovies[0]}
-                  popularMoviesIndexZero={popularMovies[0]}
-                  conditionCarouselProp={conditionCarousel}
-                  selectedMovie={selectedMovie}
-                  searchedMovieResultProp={searchedMovieResult}
-                  getCarouselMoviesSearchedByConditionProp={
-                    searchedMovie
-                      ? getCarouselMoviesSearchedByCondition
-                      : getCarouselMoviesByCondition
-                  }
-                />
+
+                <CarouselComponent {...carouselProps} />
               </div>
             )}
+
             {isMenuOpen && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -240,30 +242,19 @@ export const Home = () => {
                       onKeyPress={handleSearch}
                     />
                   </ContainerSearchIconMenu>
-                  <Tabs
-                    isSelected={conditionCarousel === "TvSeries"}
-                    onClick={() => handleMenuOptionsClick("TvSeries")}
-                  >
-                    TvSeries
-                  </Tabs>
-                  <Tabs
-                    isSelected={conditionCarousel === "Movies"}
-                    onClick={() => handleMenuOptionsClick("Movies")}
-                  >
-                    Movies
-                  </Tabs>
-                  <Tabs
-                    isSelected={conditionCarousel === "Upcoming"}
-                    onClick={() => handleMenuOptionsClick("Upcoming")}
-                  >
-                    Upcoming
-                  </Tabs>
+
+                  <TabsHelper
+                    conditionCarouselProp={conditionCarousel}
+                    handleMenuOptionsClickProp={handleMenuOptionsClick}
+                  />
+                  
                 </MenuContainer>
               </motion.div>
             )}
           </Container>
         </MainContainer>
       </DefaultScreenContainer>
+
       {getDefaultMovieByCondition() && (
         <ModalComponent
           isOpen={isModalOpen}

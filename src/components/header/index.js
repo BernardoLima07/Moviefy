@@ -3,45 +3,22 @@ import {
   Container,
   Title,
   TabsContainer,
-  Tabs,
   ContainerSearchIcon,
   InputSearch,
   MenuIconStyled,
 } from "./styles";
-import SearchIcon from "@mui/icons-material/Search";
 import menuIcon from "../../assets/menuIcon.png";
+import TabsHelper from "../helpers/tabs";
 
 const Header = ({
-  setConditionCarousel,
-  setConditionDefaultMovieBooleanProp,
-  setSearchedMovieResult,
   setSearchedMovie,
   setConditionCarouselMoviesSearchedProp,
   setIsMenuOpenProp,
+  handleMenuOptionsClickProp,
+  conditionCarouselProp,
   handleMenuClickProp,
 }) => {
-  const [selectedText, setSelectedText] = useState("Movies");
   const [searchInput, setSearchInput] = useState("");
-
-  const [rotationMenuIcon, setRotationMenuIcon] = useState(false);
-
-  const handleTextClick = (text) => {
-    setSelectedText(text);
-    setConditionCarousel(text);
-    setConditionDefaultMovieBooleanProp(true);
-    setSearchInput("");
-
-    switch (text) {
-      case "Movies":
-        return setSearchedMovie("") && setSearchedMovieResult([]);
-      case "Upcoming":
-        return setSearchedMovie("") && setSearchedMovieResult([]);
-      case "TvSeries":
-        return setSearchedMovie("") && setSearchedMovieResult([]);
-      default:
-        return [];
-    }
-  };
 
   const handleSearchKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -52,33 +29,18 @@ const Header = ({
 
   return (
     <Container>
-      <Title onClick={() => handleTextClick("Movies")}>MOVIEFY</Title>
+      <Title>MOVIEFY</Title>
       <TabsContainer>
-        <Tabs
-          isSelected={selectedText === "TvSeries"}
-          onClick={() => handleTextClick("TvSeries")}
-        >
-          TvSeries
-        </Tabs>
-        <Tabs
-          isSelected={selectedText === "Movies"}
-          onClick={() => handleTextClick("Movies")}
-        >
-          Movies
-        </Tabs>
-        <Tabs
-          isSelected={selectedText === "Upcoming"}
-          onClick={() => handleTextClick("Upcoming")}
-        >
-          Upcoming
-        </Tabs>
+        <TabsHelper
+          conditionCarouselProp={conditionCarouselProp}
+          handleMenuOptionsClickProp={handleMenuOptionsClickProp}
+        />
       </TabsContainer>
       <MenuIconStyled
         src={menuIcon}
         alt=""
         onClick={() => {
           setIsMenuOpenProp(true);
-          setRotationMenuIcon(true);
           handleMenuClickProp();
         }}
       />
