@@ -24,11 +24,11 @@ export const CarouselContainer = styled.div({
     zIndex: 100,
   },
 
-  "@media (min-width: 1025px)": {
+  "@media (min-width: 1025px) and (max-width: 1440px) and (max-height: 780px)": {
     width: "100%",
     padding: "20px 0",
     zIndex: 100,
-    bottom: "160px",
+    bottom: "280px",
   },
 });
 
