@@ -30,6 +30,14 @@ export const CarouselContainer = styled.div({
     zIndex: 100,
     bottom: "160px",
   },
+
+  "@media (max-height: 700px)": {
+    bottom: "230px",
+    left: 0,
+    width: "100%",
+    padding: "20px 0",
+    zIndex: 100,
+  },
 });
 
 export const MovieImageCarousel = styled.img(

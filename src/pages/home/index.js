@@ -209,11 +209,11 @@ export const Home = () => {
                       </Details>
                     </DetailsContent>
                     <MovieOverview>
-                      {getDefaultMovieByCondition().overview.length > 100
-                        ? getDefaultMovieByCondition().overview.slice(0, 100) +
+                      {getDefaultMovieByCondition().overview.length > 95
+                        ? getDefaultMovieByCondition().overview.slice(0, 95) +
                           "..."
                         : getDefaultMovieByCondition().overview}
-                      {getDefaultMovieByCondition().overview.length > 100 && (
+                      {getDefaultMovieByCondition().overview.length > 95 && (
                         <SeeMore onClick={() => setIsModalOpen(true)}>
                           {" Ver mais"}
                         </SeeMore>
@@ -247,7 +247,7 @@ export const Home = () => {
                     conditionCarouselProp={conditionCarousel}
                     handleMenuOptionsClickProp={handleMenuOptionsClick}
                   />
-                  
+
                 </MenuContainer>
               </motion.div>
             )}
