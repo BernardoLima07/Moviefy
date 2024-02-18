@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CarouselContainer = styled.div({
   display: "grid",
   position: "relative",
-  bottom: "60%",
+  bottom: "20%",
 
   "@media screen and (max-width: 768px)": {
     position: "fixed",
@@ -21,8 +21,7 @@ export const CarouselContainer = styled.div({
     width: "100%",
     padding: "20px 0",
     zIndex: 100,
-  }
-  
+  },
 });
 
 export const MovieImageCarousel = styled.img(
@@ -45,16 +44,16 @@ export const MovieImageCarousel = styled.img(
 );
 
 export const GenresTitle = styled.p({
-  display: 'flex',
-  justifyContent: 'start',
-  top: '40px',
-  position: 'relative',
-  color: '#48d2af',
-  fontSize: '25px',
-  marginLeft: '20px',
+  display: "flex",
+  justifyContent: "start",
+  top: "30px",
+  position: "relative",
+  color: "#48d2af",
+  fontSize: "25px",
+  marginLeft: "20px",
   fontFamily: "NetflixSans-Medium, sans-serif",
 
   "@media (max-width: 460px)": {
-   marginLeft: '7px'
-  }
-})
+    marginLeft: "7px",
+  },
+});

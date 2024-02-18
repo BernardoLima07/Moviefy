@@ -80,11 +80,46 @@ export const ContainerMovies = styled.div({
 });
 
 export const SeeMore = styled.span({
-  color: '#48d2af',
-  cursor: 'pointer'
-})
+  color: "#48d2af",
+  cursor: "pointer",
+});
 
-export const MobileScreenContainer = styled.div({
+export const MenuContainer = styled.div({
+  backgroundColor: "#172431",
+  border: "1px solid #ffffff",
+  borderRadius: "10px",
+  position: "absolute",
+  display: "flex",
+  flexDirection: "column",
+  right: 0,
+  height: "35%",
+  width: "40%",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 100,
+});
+
+export const ContainerSearchIconMenu = styled.div({
+  backgroundColor: "#2F3640",
+  borderRadius: "10px",
+  padding: "5px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+export const InputSearchMenu = styled.input({
+  width: "100px",
+  outline: "none",
+  border: "none",
+  backgroundColor: "transparent",
+  height: "23px",
+  fontWeight: 500,
+  color: "#ffffff",
+  fontFamily: "NetflixSans-Medium, sans-serif",
+});
+
+export const DefaultScreenContainer = styled.div({
   "@media screen and (max-width: 767px)": {
     [`${Container}`]: {
       width: "100%",
@@ -99,7 +134,7 @@ export const MobileScreenContainer = styled.div({
     },
 
     [`${DetailsContent}`]: {
-      marginTop: '50%',
+      marginTop: "50%",
       width: "100%",
     },
 
@@ -109,56 +144,6 @@ export const MobileScreenContainer = styled.div({
 
     [`${BackgroundImage}`]: {
       backgroundSize: "contain",
-      backgroundRepeat: "no-repeat",
-    },
-  },
-});
-
-export const TabletScreenContainer = styled.div({
-  "@media screen and (min-width: 768px) and (max-width: 1024px)": {
-    [`${Container}`]: {
-      width: "70%",
-    },
-
-    [`${ContentContainer}`]: {
-      maxWidth: "70%",
-    },
-
-    [`${DetailsContent}`]: {
-      width: "70%",
-    },
-
-    [`${MovieOverview}`]: {
-      marginLeft: "10px",
-    },
-
-    [`${BackgroundImage}`]: {
-      backgroundSize: "contain",
-      backgroundRepeat: "no-repeat",
-    },
-  },
-});
-
-export const DesktopScreenContainer = styled.div({
-  "@media screen and (min-width: 1025px)": {
-    [`${Container}`]: {
-      width: "60%",
-    },
-
-    [`${ContentContainer}`]: {
-      maxWidth: "60%",
-    },
-
-    [`${DetailsContent}`]: {
-      width: "60%",
-    },
-
-    [`${MovieOverview}`]: {
-      marginLeft: "20px",
-    },
-
-    [`${BackgroundImage}`]: {
-      backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
     },
   },

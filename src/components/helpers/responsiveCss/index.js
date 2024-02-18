@@ -7,7 +7,7 @@ export const responsive = {
   laptopG: {
     breakpoint: { max: 1440, min: 464 },
     items: 6,
-    slidesToSlide: 2
+    slidesToSlide: 3
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -17,7 +17,7 @@ export const responsive = {
   mobile: {
     breakpoint: { max: 867, min: 0 },
     items: 4,
-    slidesToSlide: 1,
+    slidesToSlide: 2,
   },
   miniMobile: {
     breakpoint: { max: 671, min: 0 },

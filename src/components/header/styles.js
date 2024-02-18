@@ -1,18 +1,20 @@
 import styled from "styled-components";
 
 export const Container = styled.div({
-  width: '100%',
-  height: '8vh',
-  alignItems: 'center',
-  display: 'flex',
-  justifyContent: 'space-between',
-  position: 'static'
-})
+  width: "100%",
+  height: "8vh",
+  alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+  position: "static",
+  borderBottom: "1px solid #ffffff",
+});
 
 export const Title = styled.h1({
   fontFamily: "NetflixSans-Medium, sans-serif",
   color: "#48d2af",
   marginLeft: "4%",
+  cursor: "pointer",
 });
 
 export const TabsContainer = styled.div({
@@ -20,6 +22,10 @@ export const TabsContainer = styled.div({
   flexDirection: "row",
   justifyContent: "space-between",
   width: "30%",
+
+  "@media screen and (max-width: 768px)": {
+    display: "none",
+  },
 });
 
 export const Tabs = styled.p(({ isSelected }) => ({
@@ -39,15 +45,18 @@ export const Tabs = styled.p(({ isSelected }) => ({
 }));
 
 export const ContainerSearchIcon = styled.div({
-  background: "#2F3640",
+  backgroundColor: "#2F3640",
   borderRadius: "10px",
   padding: "5px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   marginRight: "4%",
-});
 
+  "@media screen and (max-width: 768px)": {
+    display: "none",
+  },
+});
 
 export const InputSearch = styled.input({
   width: "100px",
@@ -58,4 +67,19 @@ export const InputSearch = styled.input({
   fontWeight: 500,
   color: "#ffffff",
   fontFamily: "NetflixSans-Medium, sans-serif",
+
+  "@media screen and (max-width: 768px)": {
+    display: "none",
+  },
 });
+
+export const MenuIconStyled = styled.img(({ rotationMenuIconProp }) => ({
+  display: "none",
+  cursor: "pointer",
+  marginRight: "4%",
+  transform: rotationMenuIconProp ? "rotate(180deg)" : "rotate(0deg)",
+
+  "@media screen and (max-width: 768px)": {
+    display: "initial",
+  },
+}));

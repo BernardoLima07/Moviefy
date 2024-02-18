@@ -35,30 +35,30 @@ export const CarouselComponent = ({
   };
 
   return (
-      <CarouselContainer>
-        <GenresTitle>Popular</GenresTitle>
-        <Carousel
-          swipeable={["tablet", "mobile", "miniMobile", "tablet"]} 
-          draggable={false}
-          removeArrowOnDeviceType={["tablet", "mobile", "miniMobile", "tablet"]}
-          infinite={true}
-          responsive={responsive}
-        >
-          {getCarouselMoviesSearchedByConditionProp().map((movie) => (
-            <ContainerMovies key={movie.id}>
-              <MovieImageCarousel
-                width={150}
-                src={`${imageUrl}${movie.poster_path}`}
-                alt={movie.title}
-                onClick={() => {
-                  handleMovieClick(movie);
-                  setBorderCondition(borderMoviesByCondition(movie));
-                }}
-                borderMoviesByConditionProp={borderMoviesByCondition(movie)}
-              />
-            </ContainerMovies>
-          ))}
-        </Carousel>
-      </CarouselContainer>
+    <CarouselContainer>
+      <GenresTitle>Popular</GenresTitle>
+      <Carousel
+        swipeable={["tablet", "mobile", "miniMobile", "tablet"]}
+        draggable={false}
+        removeArrowOnDeviceType={["tablet", "mobile", "miniMobile", "tablet"]}
+        infinite={true}
+        responsive={responsive}
+      >
+        {getCarouselMoviesSearchedByConditionProp().map((movie) => (
+          <ContainerMovies key={movie.id}>
+            <MovieImageCarousel
+              width={150}
+              src={`${imageUrl}${movie.poster_path}`}
+              alt={movie.title}
+              onClick={() => {
+                handleMovieClick(movie);
+                setBorderCondition(borderMoviesByCondition(movie));
+              }}
+              borderMoviesByConditionProp={borderMoviesByCondition(movie)}
+            />
+          </ContainerMovies>
+        ))}
+      </Carousel>
+    </CarouselContainer>
   );
 };

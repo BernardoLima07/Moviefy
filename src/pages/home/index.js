@@ -11,14 +11,20 @@ import {
   MovieTitle,
   Details,
   MainContainer,
-  TabletScreenContainer,
-  DesktopScreenContainer,
-  MobileScreenContainer,
   SeeMore,
+  DefaultScreenContainer,
+  MenuContainer,
+  ContainerSearchIconMenu,
+  InputSearchMenu,
 } from "./styles";
 import Header from "../../components/header";
 import { CarouselComponent } from "../../components/carousel";
 import ModalComponent from "../../components/modal";
+import {
+  ContainerSearchIcon,
+  InputSearch,
+  Tabs,
+} from "../../components/header/styles";
 
 export const Home = () => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -32,11 +38,12 @@ export const Home = () => {
 
   const [conditionCarousel, setConditionCarousel] = useState("Movies");
   const [conditionCarouselMoviesSearched, setConditionCarouselMoviesSearched] =
-    useState(true);
+    useState(false);
   const [conditionDefaultMovie, setConditionDefaultMovie] = useState(true);
   const [conditionDefaultMovieBoolean, setConditionDefaultMovieBoolean] =
     useState(true);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -120,6 +127,17 @@ export const Home = () => {
     }
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuOptionsClick = (text) => {
+    setConditionCarousel(text);
+    setIsMenuOpen(false);
+    setConditionDefaultMovieBoolean(true);
+    setSearchedMovie("");
+  };
+
   return (
     <>
       <Header
@@ -132,51 +150,55 @@ export const Home = () => {
           setConditionCarouselMoviesSearched
         }
         conditionCarouselProp={conditionCarousel}
+        setIsMenuOpenProp={setIsMenuOpen}
+        handleMenuClickProp={handleMenuClick}
       />
-      <MobileScreenContainer>
+      <DefaultScreenContainer>
         <MainContainer>
           <Container>
             {getDefaultMovieByCondition() && (
-              <motion.div
-                key={getDefaultMovieByCondition().id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7 }}
-              >
-                <BackgroundImage
-                  backgroundImage={`url(${originalImageURL}${
-                    getDefaultMovieByCondition().backdrop_path
-                  })`}
-                />
-                <ContentContainer>
-                  <MovieTitle>
-                    {getDefaultMovieByCondition().title ||
-                      getDefaultMovieByCondition().name}
-                  </MovieTitle>
-                  <DetailsContent>
-                    <Details>
-                      {getDefaultMovieByCondition().vote_average.toFixed(2)}{" "}
-                      Points
-                    </Details>
-                    <Details>
-                      {new Date(
-                        getDefaultMovieByCondition().release_date ||
-                          getDefaultMovieByCondition().first_air_date
-                      ).getFullYear()}
-                    </Details>
-                  </DetailsContent>
-                  <MovieOverview>
-                    {getDefaultMovieByCondition().overview.length > 100
-                      ? getDefaultMovieByCondition().overview.slice(0, 100) +
-                        "..."
-                      : getDefaultMovieByCondition().overview}
-                    {getDefaultMovieByCondition().overview.length > 100 && (
-                      <SeeMore onClick={() => setIsModalOpen(true)}>
-                        {" Ver mais"}
-                      </SeeMore>
-                    )}
-                  </MovieOverview>
-                </ContentContainer>
+              <div>
+                <motion.div
+                  key={getDefaultMovieByCondition().id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.7 }}
+                >
+                  <BackgroundImage
+                    backgroundImage={`url(${originalImageURL}${
+                      getDefaultMovieByCondition().backdrop_path
+                    })`}
+                  />
+                  <ContentContainer>
+                    <MovieTitle>
+                      {getDefaultMovieByCondition().title ||
+                        getDefaultMovieByCondition().name}
+                    </MovieTitle>
+                    <DetailsContent>
+                      <Details>
+                        {getDefaultMovieByCondition().vote_average.toFixed(2)}{" "}
+                        Points
+                      </Details>
+                      <Details>
+                        {new Date(
+                          getDefaultMovieByCondition().release_date ||
+                            getDefaultMovieByCondition().first_air_date
+                        ).getFullYear()}
+                      </Details>
+                    </DetailsContent>
+                    <MovieOverview>
+                      {getDefaultMovieByCondition().overview.length > 100
+                        ? getDefaultMovieByCondition().overview.slice(0, 100) +
+                          "..."
+                        : getDefaultMovieByCondition().overview}
+                      {getDefaultMovieByCondition().overview.length > 100 && (
+                        <SeeMore onClick={() => setIsModalOpen(true)}>
+                          {" Ver mais"}
+                        </SeeMore>
+                      )}
+                    </MovieOverview>
+                  </ContentContainer>
+                </motion.div>
                 <CarouselComponent
                   handleMovieClick={handleMovieClick}
                   getCarouselMoviesByCondition={getCarouselMoviesByCondition}
@@ -186,20 +208,54 @@ export const Home = () => {
                   popularMoviesIndexZero={popularMovies[0]}
                   conditionCarouselProp={conditionCarousel}
                   selectedMovie={selectedMovie}
-                  searchedMovieResult={searchedMovieResult}
+                  searchedMovieResultProp={searchedMovieResult}
                   getCarouselMoviesSearchedByConditionProp={
                     searchedMovie
                       ? getCarouselMoviesSearchedByCondition
                       : getCarouselMoviesByCondition
                   }
                 />
+              </div>
+            )}
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <MenuContainer>
+                  <ContainerSearchIconMenu>
+                    <InputSearchMenu
+                      type="text"
+                      placeholder="Search"
+                      value={searchedMovie}
+                      onChange={(e) => setSearchedMovie(e.target.value)}
+                    />
+                  </ContainerSearchIconMenu>
+                  <Tabs
+                    isSelected={conditionCarousel === "TvSeries"}
+                    onClick={() => handleMenuOptionsClick("TvSeries")}
+                  >
+                    TvSeries
+                  </Tabs>
+                  <Tabs
+                    isSelected={conditionCarousel === "Movies"}
+                    onClick={() => handleMenuOptionsClick("Movies")}
+                  >
+                    Movies
+                  </Tabs>
+                  <Tabs
+                    isSelected={conditionCarousel === "Upcoming"}
+                    onClick={() => handleMenuOptionsClick("Upcoming")}
+                  >
+                    Upcoming
+                  </Tabs>
+                </MenuContainer>
               </motion.div>
             )}
           </Container>
         </MainContainer>
-      </MobileScreenContainer>
-      <TabletScreenContainer></TabletScreenContainer>
-      <DesktopScreenContainer></DesktopScreenContainer>
+      </DefaultScreenContainer>
       {getDefaultMovieByCondition() && (
         <ModalComponent
           isOpen={isModalOpen}

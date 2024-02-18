@@ -17,7 +17,7 @@ const ModalComponent = ({ isOpen, closeModal, overview }) => {
           backgroundColor: "#172431",
           borderRadius: "12px",
           maxWidth: "400px",
-          maxHeight: "600px",
+          maxHeight: "400px",
           margin: "auto",
         },
       }}

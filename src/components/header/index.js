@@ -9,7 +9,7 @@ import {
   MenuIconStyled,
 } from "./styles";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
+import menuIcon from "../../assets/menuIcon.png";
 
 const Header = ({
   setConditionCarousel,
@@ -17,9 +17,13 @@ const Header = ({
   setSearchedMovieResult,
   setSearchedMovie,
   setConditionCarouselMoviesSearchedProp,
+  setIsMenuOpenProp,
+  handleMenuClickProp,
 }) => {
   const [selectedText, setSelectedText] = useState("Movies");
   const [searchInput, setSearchInput] = useState("");
+
+  const [rotationMenuIcon, setRotationMenuIcon] = useState(false);
 
   const handleTextClick = (text) => {
     setSelectedText(text);
@@ -29,11 +33,11 @@ const Header = ({
 
     switch (text) {
       case "Movies":
-        return setSearchedMovie(""), setSearchedMovieResult([]);
+        return setSearchedMovie("") && setSearchedMovieResult([]);
       case "Upcoming":
-        return setSearchedMovie(""), setSearchedMovieResult([]);
+        return setSearchedMovie("") && setSearchedMovieResult([]);
       case "TvSeries":
-        return setSearchedMovie(""), setSearchedMovieResult([]);
+        return setSearchedMovie("") && setSearchedMovieResult([]);
       default:
         return [];
     }
@@ -48,7 +52,36 @@ const Header = ({
 
   return (
     <Container>
-      <Title>MOVIEFY</Title>
+      <Title onClick={() => handleTextClick("Movies")}>MOVIEFY</Title>
+      <TabsContainer>
+        <Tabs
+          isSelected={selectedText === "TvSeries"}
+          onClick={() => handleTextClick("TvSeries")}
+        >
+          TvSeries
+        </Tabs>
+        <Tabs
+          isSelected={selectedText === "Movies"}
+          onClick={() => handleTextClick("Movies")}
+        >
+          Movies
+        </Tabs>
+        <Tabs
+          isSelected={selectedText === "Upcoming"}
+          onClick={() => handleTextClick("Upcoming")}
+        >
+          Upcoming
+        </Tabs>
+      </TabsContainer>
+      <MenuIconStyled
+        src={menuIcon}
+        alt=""
+        onClick={() => {
+          setIsMenuOpenProp(true);
+          setRotationMenuIcon(true);
+          handleMenuClickProp();
+        }}
+      />
       <ContainerSearchIcon>
         <InputSearch
           type="text"
