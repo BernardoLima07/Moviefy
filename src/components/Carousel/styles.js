@@ -56,4 +56,8 @@ export const GenresTitle = styled.p({
   "@media (max-width: 460px)": {
     marginLeft: "7px",
   },
+
+  "@media (max-height: 680px)": {
+    fontSize: '20px'
+  }
 });

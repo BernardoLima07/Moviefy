@@ -127,6 +127,13 @@ export const Home = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      e.target.blur();
+      setIsMenuOpen(false)
+    }
+  };
+
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -230,6 +237,7 @@ export const Home = () => {
                       placeholder="Search"
                       value={searchedMovie}
                       onChange={(e) => setSearchedMovie(e.target.value)}
+                      onKeyPress={handleSearch}
                     />
                   </ContainerSearchIconMenu>
                   <Tabs

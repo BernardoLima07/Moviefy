@@ -61,6 +61,10 @@ export const MovieOverview = styled.p({
   fontFamily: "NetflixSans-Medium, sans-serif",
   position: "relative",
   marginLeft: "20px",
+
+  "@media (max-height: 680px)": {
+    fontSize: '15px'
+  }
 });
 
 export const Details = styled.p({
@@ -70,6 +74,10 @@ export const Details = styled.p({
   position: "relative",
   marginLeft: "20px",
   fontSize: "18px",
+
+  "@media (max-height: 680px)": {
+    fontSize: '13px'
+  }
 });
 
 export const ContainerMovies = styled.div({
