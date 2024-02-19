@@ -47,22 +47,22 @@ export const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchUpcomingMovies = fetch(
-        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+        "https://api.themoviedb.org/3/movie/upcoming?language=pt-BR&page=1",
         options
       ).then((response) => response.json());
 
       const fetchPopularMovies = fetch(
-        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/popular?language=pt-BR&page=1`,
         options
       ).then((response) => response.json());
 
       const fetchTopRatedSeries = fetch(
-        "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
+        "https://api.themoviedb.org/3/tv/top_rated?language=pt-BR&page=1",
         options
       ).then((response) => response.json());
 
       const fetchSearchedMovies = fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${searchedMovie}&include_adult=false&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=${searchedMovie}&include_adult=false&language=pt-BR&page=1`,
         options
       ).then((response) => response.json());
 
@@ -101,11 +101,11 @@ export const Home = () => {
 
   const getCarouselMoviesByCondition = () => {
     switch (conditionCarousel) {
-      case "TvSeries":
+      case "Series":
         return topRatedSeries;
-      case "Movies":
+      case "Filmes":
         return popularMovies;
-      case "Upcoming":
+      case "Chegando":
         return upcomingMovies;
       default:
         return [];
@@ -114,11 +114,11 @@ export const Home = () => {
 
   const getDefaultMovieByCondition = () => {
     switch (conditionCarousel) {
-      case "Movies":
+      case "Filmes":
         return conditionDefaultMovieBoolean ? popularMovies[0] : selectedMovie;
-      case "Upcoming":
+      case "Chegando":
         return conditionDefaultMovieBoolean ? upcomingMovies[0] : selectedMovie;
-      case "TvSeries":
+      case "Series":
         return conditionDefaultMovieBoolean ? topRatedSeries[0] : selectedMovie;
       default:
         return null;
@@ -195,7 +195,7 @@ export const Home = () => {
                     <DetailsContent>
                       <Details>
                         {getDefaultMovieByCondition().vote_average.toFixed(2)}{" "}
-                        Points
+                        Pontos
                       </Details>
                       <Details>
                         {new Date(

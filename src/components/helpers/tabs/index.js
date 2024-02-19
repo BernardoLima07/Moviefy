@@ -10,9 +10,9 @@ const TabsHelper = ({ conditionCarouselProp, handleMenuOptionsClickProp }) => {
   };
 
   const tabs = [
-    { label: "TvSeries", condition: conditionCarouselProp === "TvSeries" },
-    { label: "Movies", condition: conditionCarouselProp === "Movies" },
-    { label: "Upcoming", condition: conditionCarouselProp === "Upcoming" },
+    { label: "Series", condition: conditionCarouselProp === "Series" },
+    { label: "Filmes", condition: conditionCarouselProp === "Filmes" },
+    { label: "Chegando", condition: conditionCarouselProp === "Chegando" },
   ];
 
   return (
