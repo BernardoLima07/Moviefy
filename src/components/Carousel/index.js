@@ -3,7 +3,7 @@ import { responsive } from "../helpers/responsiveCss";
 import imageUrl from "../helpers/imageURL";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { ContainerMovies } from "../../pages/home/styles";
+import { ContainerMovies } from "./styles";
 import { CarouselContainer, GenresTitle, MovieImageCarousel } from "./styles";
 
 export const CarouselComponent = ({
@@ -33,6 +33,11 @@ export const CarouselComponent = ({
     }
   };
 
+  const handleImageClick = (movie) => {
+    handleMovieClick(movie);
+    setBorderCondition(borderMoviesByCondition(movie));
+  };
+
   return (
     <CarouselContainer>
       <GenresTitle>Popular</GenresTitle>
@@ -44,15 +49,28 @@ export const CarouselComponent = ({
         responsive={responsive}
       >
         {getCarouselMoviesSearchedByConditionProp().map((movie) => (
-          <ContainerMovies key={movie.id}>
+          <ContainerMovies
+            key={movie.id}
+            whileHover={{ scale: 1.13 }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.1,
+              ease: [0, 0.71, 0.2, 1.01],
+              scale: {
+                type: "spring",
+                damping: 10,
+                stiffness: 100,
+                restDelta: 0.001,
+              },
+            }}
+            onClick={() => handleImageClick(movie)}
+          >
             <MovieImageCarousel
               width={150}
               src={`${imageUrl}${movie.poster_path}`}
               alt={movie.title}
-              onClick={() => {
-                handleMovieClick(movie);
-                setBorderCondition(borderMoviesByCondition(movie));
-              }}
               borderMoviesByConditionProp={borderMoviesByCondition(movie)}
             />
           </ContainerMovies>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const CarouselContainer = styled.div({
   display: "grid",
@@ -12,7 +13,7 @@ export const CarouselContainer = styled.div({
     padding: "20px 0",
     zIndex: 100,
     width: "100%",
-    height: "calc(40% - 40px)",
+    height: "calc(43% - 40px)",
   },
 
   "@media (min-width: 769px) and (max-width: 1024px)": {
@@ -24,12 +25,20 @@ export const CarouselContainer = styled.div({
     zIndex: 100,
   },
 
-  "@media (min-width: 1025px) and (max-width: 1440px) and (max-height: 780px)": {
-    width: "100%",
-    padding: "20px 0",
-    zIndex: 100,
-    bottom: "280px",
-  },
+  "@media (min-width: 1025px) and (max-width: 1440px) and (max-height: 780px)":
+    {
+      width: "100%",
+      padding: "20px 0",
+      zIndex: 100,
+      bottom: "280px",
+    },
+});
+
+export const ContainerMovies = styled(motion.div)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: "20px 0px 20px 0px",
 });
 
 export const MovieImageCarousel = styled.img(
@@ -40,10 +49,6 @@ export const MovieImageCarousel = styled.img(
     border: borderMoviesByConditionProp ? "3px solid #ffffff" : "none",
     position: "relative",
     maxHeight: "221px",
-
-    "&:hover": {
-      transform: "scale(1.13)",
-    },
 
     "@media (max-width: 768px)": {
       width: "85%",

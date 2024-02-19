@@ -5,45 +5,52 @@ import {
   TabsContainer,
   ContainerSearchIcon,
   InputSearch,
-  MenuIconStyled,
+  MenuButton,
 } from "./styles";
-import menuIcon from "../../assets/menuIcon.png";
 import TabsHelper from "../helpers/tabs";
 
 const Header = ({
   setSearchedMovie,
-  setConditionCarouselMoviesSearchedProp,
-  setIsMenuOpenProp,
-  handleMenuOptionsClickProp,
-  conditionCarouselProp,
-  handleMenuClickProp,
+  setConditionCarouselMoviesSearched,
+  setIsMenuOpen,
+  handleMenuOptionsClick,
+  conditionCarousel,
+  handleMenuClick,
+  setConditionCarousel
 }) => {
   const [searchInput, setSearchInput] = useState("");
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
 
   const handleSearchKeyPress = (e) => {
     if (e.key === "Enter") {
       setSearchedMovie(searchInput);
-      setConditionCarouselMoviesSearchedProp(false);
+      setConditionCarouselMoviesSearched(false);
     }
+  };
+
+  const handleClick = () => {
+    setIsMenuClicked(!isMenuClicked);
   };
 
   return (
     <Container>
-      <Title>MOVIEFY</Title>
+      <Title onClick={() => setConditionCarousel("Movies")}>MOVIEFY</Title>
       <TabsContainer>
         <TabsHelper
-          conditionCarouselProp={conditionCarouselProp}
-          handleMenuOptionsClickProp={handleMenuOptionsClickProp}
+          conditionCarouselProp={conditionCarousel}
+          handleMenuOptionsClickProp={handleMenuOptionsClick}
         />
       </TabsContainer>
-      <MenuIconStyled
-        src={menuIcon}
-        alt=""
+      <MenuButton
+        whileTap={{ scale: 0.9 }}
         onClick={() => {
-          setIsMenuOpenProp(true);
-          handleMenuClickProp();
+          setIsMenuOpen(true);
+          handleMenuClick();
+          handleClick();
         }}
-      />
+      >
+        Menu
+      </MenuButton>
       <ContainerSearchIcon>
         <InputSearch
           type="text"

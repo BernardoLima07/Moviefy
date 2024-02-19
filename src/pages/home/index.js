@@ -16,6 +16,8 @@ import {
   MenuContainer,
   ContainerSearchIconMenu,
   InputSearchMenu,
+  TabsMenuContainer,
+  MotionMenuContainer,
 } from "./styles";
 import Header from "../../components/header";
 import { CarouselComponent } from "../../components/carousel";
@@ -140,27 +142,22 @@ export const Home = () => {
     setConditionDefaultMovieBoolean(true);
     setSearchedMovie("");
   };
-
+  
   const headerProps = {
     setConditionCarousel,
-    setConditionDefaultMovieBoolean,
     setSearchedMovie,
-    setSearchedMovieResult,
-    searchedMovie,
-    setConditionCarouselMoviesSearchedProp: setConditionCarouselMoviesSearched,
-    setIsMenuOpenProp: setIsMenuOpen,
-    handleMenuClickProp: handleMenuClick,
-    conditionCarouselProp: conditionCarousel,
-    handleMenuOptionsClickProp: handleMenuOptionsClick,
+    setConditionCarouselMoviesSearched,
+    setIsMenuOpen,
+    handleMenuClick,
+    conditionCarousel,
+    handleMenuOptionsClick
   };
 
   const carouselProps = {
-    handleMovieClick,
     getCarouselMoviesByCondition,
     conditionDefaultMovieBoolean,
-    conditionCarousel,
     selectedMovie,
-    searchedMovieResult,
+    handleMovieClick,
     topRatedSeriesIndexZero: topRatedSeries[0],
     upcomingMoviesIndexZero: upcomingMovies[0],
     popularMoviesIndexZero: popularMovies[0],
@@ -176,7 +173,6 @@ export const Home = () => {
       <DefaultScreenContainer>
         <MainContainer>
           <Container>
-
             {getDefaultMovieByCondition() && (
               <div>
                 <motion.div
@@ -227,10 +223,10 @@ export const Home = () => {
             )}
 
             {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+              <MotionMenuContainer  
+                initial={{ opacity: 0, scale: 0.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
               >
                 <MenuContainer>
                   <ContainerSearchIconMenu>
@@ -242,14 +238,14 @@ export const Home = () => {
                       onKeyPress={handleSearch}
                     />
                   </ContainerSearchIconMenu>
-
-                  <TabsHelper
-                    conditionCarouselProp={conditionCarousel}
-                    handleMenuOptionsClickProp={handleMenuOptionsClick}
-                  />
-
+                  <TabsMenuContainer>
+                    <TabsHelper
+                      conditionCarouselProp={conditionCarousel}
+                      handleMenuOptionsClickProp={handleMenuOptionsClick}
+                    />
+                  </TabsMenuContainer>
                 </MenuContainer>
-              </motion.div>
+              </MotionMenuContainer>
             )}
           </Container>
         </MainContainer>

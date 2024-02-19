@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {motion} from 'framer-motion'
 
 export const MainContainer = styled.div({
   display: "flex",
@@ -88,13 +89,6 @@ export const Details = styled.p({
   },
 });
 
-export const ContainerMovies = styled.div({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: 'center',
-  margin: "20px 0px 20px 0px",
-});
-
 export const SeeMore = styled.span({
   color: "#48d2af",
   cursor: "pointer",
@@ -104,35 +98,48 @@ export const MenuContainer = styled.div({
   backgroundColor: "#172431",
   border: "1px solid #ffffff",
   borderRadius: "10px",
-  position: "absolute",
-  display: "flex",
   flexDirection: "column",
-  right: 0,
-  height: "35%",
-  width: "40%",
-  alignItems: "center",
-  justifyContent: "center",
+  height: "125%",
   zIndex: 100,
 
   "@media (max-height: 700px)": {
     height: "40%",
   },
+  "@media (max-width: 400px)": {
+    height: "136%",
+  },
+});
+
+export const MotionMenuContainer = styled(motion.div)({
+  position: "absolute",
+  right: 16,
+  height: "28.8%",
+  width: "35.5%",
+  zIndex: 100,
+});
+
+export const TabsMenuContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  position: "relative",
+  marginTop: "5%"
 });
 
 export const ContainerSearchIconMenu = styled.div({
-  backgroundColor: "#2F3640",
-  borderRadius: "10px",
-  padding: "5px",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  position: 'relative',
+  marginTop: '10%'
 });
 
 export const InputSearchMenu = styled.input({
   width: "100px",
   outline: "none",
   border: "none",
-  backgroundColor: "transparent",
+  backgroundColor: "#2F3640",
+  borderRadius: "10px",
+  padding: "5px",
   height: "23px",
   fontWeight: 500,
   color: "#ffffff",
