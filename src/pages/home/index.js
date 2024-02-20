@@ -34,7 +34,7 @@ export const Home = () => {
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const [conditionCarousel, setConditionCarousel] = useState("Movies");
+  const [conditionCarousel, setConditionCarousel] = useState("Filmes");
   const [conditionCarouselMoviesSearched, setConditionCarouselMoviesSearched] =
     useState(false);
   const [conditionDefaultMovie, setConditionDefaultMovie] = useState(true);

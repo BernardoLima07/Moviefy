@@ -34,7 +34,7 @@ const Header = ({
 
   return (
     <Container>
-      <Title onClick={() => setConditionCarousel("Movies")}>MOVIEFY</Title>
+      <Title onClick={() => setConditionCarousel("Filmes")}>MOVIEFY</Title>
       <TabsContainer>
         <TabsHelper
           conditionCarouselProp={conditionCarousel}

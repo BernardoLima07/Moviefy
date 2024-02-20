@@ -78,4 +78,4 @@ export const CarouselComponent = ({
       </Carousel>
     </CarouselContainer>
   );
-};
+};  
